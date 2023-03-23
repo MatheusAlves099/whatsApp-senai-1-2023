@@ -1,6 +1,9 @@
 'use strict'
 
-import {contatos} from "./contatos.js"
+// import {contatos} from "./contatos.js"
+import { loadProfile } from "./contatosAPI.js"
+
+const contatos = await loadProfile('3')
 
 const createContact = (contato, index) => {
     const messages_chat = document.createElement('ul')
