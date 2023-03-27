@@ -3,5 +3,12 @@ export const loadProfile = async (idProfile) => {
     const response = await fetch(url)
     const contato = await response.json()
 
-    return contato
+    const urlImage = `http://localhost:8080/v1/whatsapp/profile/image/id/${idProfile}`
+    const responseImage = await fetch(urlImage)
+    const images = await responseImage.json()
+
+    return {
+        contatos: contato,
+        img: images
+    }
 }

@@ -3,7 +3,78 @@
 // import {contatos} from "./contatos.js"
 import { loadProfile } from "./contatosAPI.js"
 
-const contatos = await loadProfile('3')
+const contatos = await loadProfile('2')
+
+const createHeaderLeft = () => {
+    const headerLeft = document.getElementById('header_left')
+    headerLeft.classList.add('header_left')
+
+    const userProfile = document.createElement('div')
+    userProfile.classList.add('user_profile')
+
+    const imgProfile = document.createElement('img')
+    imgProfile.classList.add('img_profile')
+    imgProfile.src = `./${contatos.img}`
+
+    const navIconsLeft = document.createElement('nav')
+    navIconsLeft.classList.add('nav_icons')
+
+    const inputCheckbox = document.createElement('input')
+    inputCheckbox.classList.add('checkbox')
+
+    const labelCheckbox = document.createElement('label')
+    labelCheckbox.classList.add('label')
+
+    const iconMoon = document.createElement('i')
+    iconMoon.classList.add('fas', 'fa-moon')
+
+    const iconSun = document.createElement('i')
+    iconSun.classList.add('fas', 'fa-sun')
+
+    const ballCheckbox = document.createElement('div')
+    ballCheckbox.classList.add('ball')
+
+    const communityIcon = document.createElement('li')
+
+    const iconCommunity = document.createElement('i')
+    iconCommunity.classList.add('fa-solid', 'fa-users')
+
+    const statusIcon = document.createElement('li')
+
+    const iconStatus = document.createElement('i')
+    iconStatus.classList.add('fas', 'fa-spinner')
+
+    const newMessageIcon = document.createElement('li')
+
+    const iconNewMessage = document.createElement('i')
+    iconNewMessage.classList.add('fa-solid', 'fa-message')
+
+    const moreOptionsIcon = document.createElement('li')
+
+    const iconMoreOptions = document.createElement('i')
+    iconMoreOptions.classList.add('fa-solid', 'fa-ellipsis-vertical')
+
+    headerLeft.append(userProfile, navIconsLeft)
+
+    userProfile.append(imgProfile)
+
+    labelCheckbox.append(iconMoon, iconSun, ballCheckbox)
+
+    navIconsLeft.append(
+        inputCheckbox,
+        labelCheckbox,
+        communityIcon,
+        iconCommunity,
+        statusIcon,
+        iconStatus,
+        newMessageIcon,
+        iconNewMessage,
+        moreOptionsIcon,
+        iconMoreOptions
+    )
+
+    return headerLeft
+}
 
 const createContact = (contato, index) => {
     const messages_chat = document.createElement('ul')
@@ -54,18 +125,18 @@ const createHeaderRight = (index) => {
 
     const contactRightImg = document.createElement('img')
     contactRightImg.classList.add('img_contact')
-    contactRightImg.src = `./${contatos[index].image}`
+    contactRightImg.src = `./${contatos.contatos[index].image}`
 
     const contactRightText = document.createElement('div')
     contactRightText.classList.add('contact_text')
 
     const contactRightName = document.createElement('h4')
     contactRightName.classList.add('name_contact_right')
-    contactRightName.textContent = contatos[index].name
+    contactRightName.textContent = contatos.contatos[index].name
 
     const contactRightStatus = document.createElement('span')
     contactRightStatus.classList.add('status_contact_right')
-    contactRightStatus.textContent = contatos[index].description
+    contactRightStatus.textContent = contatos.contatos[index].description
 
     const navIconsRight = document.createElement('ul')
     navIconsRight.classList.add('nav_icons_right')
@@ -104,7 +175,7 @@ const createMessages = (index) => {
     const chatBox = document.createElement('div')
     chatBox.classList.add('chatbox')
 
-    contatos[index].messages.forEach((message) => {
+    contatos.contatos[index].messages.forEach((message) => {
 
         const myMessages = document.createElement('div')
         myMessages.classList.add('my_message')
@@ -138,7 +209,7 @@ const createMessages = (index) => {
 
             myMessages.append(textMyMessage, hourMyMessage)
 
-        } else if (message.sender == contatos[index].name) {
+        } else if (message.sender == contatos.contatos[index].name) {
 
             textFriendMessage.classList.add('text_friendMessage')
             textFriendMessage.textContent = message.content
@@ -152,14 +223,14 @@ const createMessages = (index) => {
 
             friendMessages.append(textFriendMessage, hourFriendMessage)
 
-        } 
+        }
     })
     return chatBox
 }
 
 const carregarContatos = () => {
     const chat_messages = document.getElementById('chat_messages')
-    const contactsMessages = contatos.map(createContact)
+    const contactsMessages = contatos.contatos.map(createContact)
 
     chat_messages.replaceChildren(...contactsMessages)
 }
@@ -171,4 +242,5 @@ const createMessageBar = () => {
     return chatInput
 }
 
+createHeaderLeft()
 carregarContatos()
